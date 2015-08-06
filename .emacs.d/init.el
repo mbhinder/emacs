@@ -48,5 +48,5 @@
 
   ;; default Latin font (e.g. Consolas)
   (set-face-attribute 'default nil :family "Consolas")
-  (set-face-attribute 'default nil :height 165)
+  (set-face-attribute 'default nil :height 150)
 )
