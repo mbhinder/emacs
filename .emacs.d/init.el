@@ -50,3 +50,48 @@
   (set-face-attribute 'default nil :family "Consolas")
   (set-face-attribute 'default nil :height 150)
 )
+
+(use-package fill-column-indicator
+  :ensure t)
+
+(define-globalized-minor-mode
+ global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(global-fci-mode t)
+
+(use-package highlight-current-line
+  :ensure t)
+
+(global-hl-line-mode t)
+(setq highlight-current-line-globally t)
+(setq highlight-current-line-high-faces nil)
+(setq highlight-current-line-whole-line nil)
+(setq hl-line-face (quote highlight))
+
+;; Don't blink the cursor
+(blink-cursor-mode 0)
+
+;; Highlight matching parentheses
+(show-paren-mode t)
+
+;; Set tabs to 4 spaces
+(setq-default indent-tabs-mode nil)
+(setq standard-indent 4)
+(setq tab-width 4)
+(setq sgml-basic-offset 4)
+
+;; Prettify programming languages syntax
+(global-prettify-symbols-mode)
+
+;; Display column number
+(column-number-mode)
+
+;; Fuzzy matching plugin for IDO
+(use-package flx-ido
+  :ensure t)
+
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
