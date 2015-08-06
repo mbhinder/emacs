@@ -43,3 +43,10 @@
   (exec-path-from-shell-initialize))
 
 (exec-path-from-shell-copy-env "GOPATH")
+
+(when (eq system-type 'darwin)
+
+  ;; default Latin font (e.g. Consolas)
+  (set-face-attribute 'default nil :family "Consolas")
+  (set-face-attribute 'default nil :height 165)
+)
