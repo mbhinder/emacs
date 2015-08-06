@@ -57,6 +57,7 @@
 (define-globalized-minor-mode
  global-fci-mode fci-mode (lambda () (fci-mode 1)))
 (global-fci-mode t)
+(setq-default fill-column 80)
 
 (use-package highlight-current-line
   :ensure t)
@@ -105,3 +106,6 @@
   :ensure t)
 
 (helm-projectile-on)
+
+;; Enable line numbers like vim
+(global-linum-mode t)
