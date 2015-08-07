@@ -29,14 +29,10 @@
 (use-package magit
   :ensure t)
 
-(use-package go-mode
-  :ensure t)
+;;; Enable auto completion
 (use-package auto-complete
   :ensure t)
-(use-package go-autocomplete
-  :ensure t)
-(use-package go-eldoc
-  :ensure t)
+
 (ac-config-default)
 
 (defun zenburn-init ()
@@ -117,6 +113,12 @@
 (projectile-global-mode)
 
 ;; Go specific stuff
+(use-package go-mode
+  :ensure t)
+(use-package go-autocomplete
+  :ensure t)
+(use-package go-eldoc
+  :ensure t)
 (defun go-mode-setup ()
   (go-eldoc-setup)
   (local-set-key (kbd "M-.") 'godef-jump)
