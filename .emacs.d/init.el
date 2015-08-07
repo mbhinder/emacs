@@ -28,6 +28,13 @@
 
 (use-package go-mode
   :ensure t)
+(use-package auto-complete
+  :ensure t)
+(use-package go-autocomplete
+  :ensure t)
+(use-package go-eldoc
+  :ensure t)
+(ac-config-default)
 
 (defun zenburn-init ()
   (load-theme 'zenburn t)
@@ -47,8 +54,8 @@
 (when (eq system-type 'darwin)
 
   ;; default Latin font (e.g. Consolas)
-  (set-face-attribute 'default nil :family "Consolas")
-  (set-face-attribute 'default nil :height 150)
+  (set-face-attribute 'default nil :family "Monaco")
+  (set-face-attribute 'default nil :height 130)
 )
 
 (use-package highlight-current-line
@@ -104,3 +111,12 @@
 
 ;; Enable projectile globally
 (projectile-global-mode)
+
+;; Go specific stuff
+(defun go-mode-setup ()
+  (go-eldoc-setup)
+  (local-set-key (kbd "M-.") 'godef-jump)
+  (add-hook 'before-save-hook 'gofmt-before-save))
+
+(add-hook 'go-mode-hook 'go-mode-setup)
+
