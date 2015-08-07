@@ -109,3 +109,6 @@
 
 ;; Enable line numbers like vim
 (global-linum-mode t)
+
+;; Enable projectile globally
+(projectile-global-mode)
