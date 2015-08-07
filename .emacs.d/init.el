@@ -51,14 +51,6 @@
   (set-face-attribute 'default nil :height 150)
 )
 
-(use-package fill-column-indicator
-  :ensure t)
-
-(define-globalized-minor-mode
- global-fci-mode fci-mode (lambda () (fci-mode 1)))
-(global-fci-mode t)
-(setq-default fill-column 80)
-
 (use-package highlight-current-line
   :ensure t)
 
