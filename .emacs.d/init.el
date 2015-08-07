@@ -26,6 +26,9 @@
 (use-package zenburn-theme
   :ensure t)
 
+(use-package magit
+  :ensure t)
+
 (use-package go-mode
   :ensure t)
 (use-package auto-complete
@@ -62,6 +65,7 @@
   :ensure t)
 
 (global-hl-line-mode t)
+(helm-mode t)
 (setq highlight-current-line-globally t)
 (setq highlight-current-line-high-faces nil)
 (setq highlight-current-line-whole-line nil)
