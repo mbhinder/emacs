@@ -126,3 +126,9 @@
 
 (add-hook 'go-mode-hook 'go-mode-setup)
 
+;; org-mode
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+(setq org-agenda-files (list "~/Dropbox/org/work.org"
+                             "~/Dropbox/org/home.org"))
