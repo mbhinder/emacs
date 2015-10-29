@@ -23,24 +23,31 @@
 (use-package color-theme
   :ensure t)
 
-(use-package zenburn-theme
+(use-package magit
   :ensure t)
 
-(use-package magit
+(use-package git-gutter
+  :ensure t)
+
+(use-package flycheck
   :ensure t)
 
 ;;; Enable auto completion
 (use-package auto-complete
   :ensure t)
 
+;;; Enable solarized dark theme
+(use-package solarized-theme
+  :ensure t)
+
 (ac-config-default)
 
-(defun zenburn-init ()
-  (load-theme 'zenburn t)
+(defun theme-init ()
+  (load-theme 'solarized-dark t)
 )
 
 ;; Change theme to zenburn
-(add-hook 'after-init-hook 'zenburn-init)
+(add-hook 'after-init-hook 'theme-init)
 
 (use-package exec-path-from-shell
   :ensure t)
@@ -122,7 +129,9 @@
 (defun go-mode-setup ()
   (go-eldoc-setup)
   (local-set-key (kbd "M-.") 'godef-jump)
-  (add-hook 'before-save-hook 'gofmt-before-save))
+  (add-hook 'before-save-hook 'gofmt-before-save)
+    (add-hook 'before-save-hook 'gofmt-before-save)
+)
 
 (add-hook 'go-mode-hook 'go-mode-setup)
 
@@ -132,3 +141,7 @@
 (setq org-log-done t)
 (setq org-agenda-files (list "~/Dropbox/org/work.org"
                              "~/Dropbox/org/home.org"))
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(global-set-key (kbd "C-x g") 'magit-status)
+
+(global-git-gutter-mode +1)
