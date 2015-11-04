@@ -133,7 +133,7 @@
   (setq tab-width 4)
   (setq indent-tabs-mode 1)
   (setq gofmt-command "goimports")
-  )
+)
 
 (add-hook 'go-mode-hook 'go-mode-setup)
 
@@ -147,3 +147,5 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (global-git-gutter-mode +1)
+(when (fboundp 'winner-mode)
+(winner-mode 1))
