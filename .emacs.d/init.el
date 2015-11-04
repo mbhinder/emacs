@@ -149,3 +149,7 @@
 (global-git-gutter-mode +1)
 (when (fboundp 'winner-mode)
 (winner-mode 1))
+
+(if (eq system-type 'darwin)
+ (global-set-key (kbd "C-c b") 'browse-url-default-macosx-browser)
+)
