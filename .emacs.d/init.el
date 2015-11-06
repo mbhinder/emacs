@@ -153,3 +153,5 @@
 (if (eq system-type 'darwin)
  (global-set-key (kbd "C-c b") 'browse-url-default-macosx-browser)
 )
+
+(add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-mode))
