@@ -40,6 +40,16 @@
 (use-package solarized-theme
   :ensure t)
 
+;; Navigate project files
+(use-package helm
+  :ensure t)
+
+(use-package helm-projectile
+  :ensure t)
+
+(helm-projectile-on)
+
+
 (ac-config-default)
 
 (defun theme-init ()
@@ -103,15 +113,6 @@
 ;; disable ido faces to see flx highlights.
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
-
-;; Navigate project files
-(use-package helm
-  :ensure t)
-
-(use-package helm-projectile
-  :ensure t)
-
-(helm-projectile-on)
 
 ;; Enable line numbers like vim
 (global-linum-mode t)
