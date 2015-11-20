@@ -153,6 +153,9 @@
 (setq org-log-done t)
 (setq org-agenda-files (list "~/Dropbox/org/work.org"
                              "~/Dropbox/org/home.org"))
+(setq org-src-fontify-natively t)
+
+
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (global-set-key (kbd "C-x g") 'magit-status)
 
