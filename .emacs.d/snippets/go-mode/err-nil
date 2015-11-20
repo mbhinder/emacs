@@ -1,0 +1,9 @@
+# -*- mode: go -*-
+# contributer: Preet Bhinder <preet.bhinder@gmail.com>
+# name: error-nil
+# key: err-nil
+# description: if err != nil
+# --
+if err != nil {
+	return err
+}
