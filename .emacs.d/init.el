@@ -154,7 +154,8 @@
 (setq org-agenda-files (list "~/Dropbox/org/work.org"
                              "~/Dropbox/org/home.org"))
 (setq org-src-fontify-natively t)
-
+(setq org-default-notes-file "~/Dropbox/org/inbox.org")
+(define-key global-map "\C-cc" 'org-capture)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (global-set-key (kbd "C-x g") 'magit-status)
