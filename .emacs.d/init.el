@@ -157,6 +157,13 @@
 (setq org-default-notes-file "~/Dropbox/org/inbox.org")
 (define-key global-map "\C-cc" 'org-capture)
 
+(setq org-todo-keyword-faces
+      `(("TODO" . (:foreground "blue" :weight bold))
+      ("IN-PROGRESS" . (:foreground "yellow" :weight bold))
+      ("WAITING" . (:foreground "orange" :weight bold))
+      ("DONE" . (:foreground "green" :weight bold))
+      ("CANCELLED" . (:foreground "red" :weight bold))))
+
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -169,3 +176,17 @@
 )
 
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-mode))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("2e5705ad7ee6cfd6ab5ce81e711c526ac22abed90b852ffaf0b316aa7864b11f" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
