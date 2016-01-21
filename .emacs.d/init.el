@@ -190,3 +190,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; use Shift+arrow_keys to move cursor around split panes
+(windmove-default-keybindings)
+
+;; when cursor is on edge, move to the other side, as in a torus space
+(setq windmove-wrap-around t )
+
+(defun refresh-file ()
+  (interactive)
+  (revert-buffer t t t)
+  )
+
+(global-set-key [f5] 'refresh-file)
