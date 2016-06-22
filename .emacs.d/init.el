@@ -171,6 +171,22 @@
       ("DONE" . (:foreground "green" :weight bold))
       ("CANCELLED" . (:foreground "red" :weight bold))))
 
+;; capture-templates
+(setq org-capture-templates '(
+    ("n" "Quick reference note"
+         entry (file+datetree (format "~/Dropbox/org/notes_%s.org" (format-time-string "%Y")))
+         "* Note: %?\n\n  %i\n\n  From: %a"
+         :empty-lines 1)
+    ("c" "Personal chore"
+         entry (file "~/Dropbox/org/chores.org")
+         "* TODO %?  %i\n  From: %a"
+         :empty-lines 1)
+    ("w" "Work task"
+         entry (file "~/Dropbox/org/work.org")
+         "* TODO %?  %i\n  From: %a"
+         :empty-lines 1))
+)
+
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (global-set-key (kbd "C-x g") 'magit-status)
 
