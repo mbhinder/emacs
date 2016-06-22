@@ -174,7 +174,7 @@
 ;; capture-templates
 (setq org-capture-templates '(
     ("n" "Quick reference note"
-         entry (file+datetree (format "~/Dropbox/org/notes_%s.org" (format-time-string "%Y")))
+         entry (file+datetree (format "~/Dropbox/org/%s_notes.org" (format-time-string "%Y")))
          "* Note: %?\n\n  %i\n\n  From: %a"
          :empty-lines 1)
     ("c" "Personal chore"
