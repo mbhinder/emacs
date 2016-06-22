@@ -4,6 +4,7 @@
                          ("melpa" . "http://melpa.org/packages/")))
 
 ;; list the packages you want
+(defvar package-list)
 (setq package-list '(use-package))
 
 ;; activate all the packages (in particular autoloads)
