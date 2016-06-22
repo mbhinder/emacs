@@ -27,6 +27,7 @@
 (use-package magit
   :ensure t)
 
+;;; Package for quickly finding notes
 (use-package deft
   :ensure t)
 (setq deft-extensions '("txt" "tex" "org"))
@@ -165,7 +166,7 @@
 (setq org-default-notes-file "~/Dropbox/org/reference.org")
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-todo-keyword-faces
-      `(("TODO" . (:foreground "blue" :weight bold))
+      `(("TODO" . (:foreground "grey" :weight bold))
       ("IN-PROGRESS" . (:foreground "yellow" :weight bold))
       ("WAITING" . (:foreground "orange" :weight bold))
       ("DONE" . (:foreground "green" :weight bold))
