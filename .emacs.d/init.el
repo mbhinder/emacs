@@ -27,6 +27,12 @@
 (use-package magit
   :ensure t)
 
+(use-package deft
+  :ensure t)
+(setq deft-extensions '("txt" "tex" "org"))
+(setq deft-directory "~/Dropbox/org")
+(global-set-key [f8] 'deft-find-file)
+
 (use-package git-gutter
   :ensure t)
 
