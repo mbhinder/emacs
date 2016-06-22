@@ -162,7 +162,7 @@
 (setq org-agenda-files (list "~/Dropbox/org/"))
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
 (setq org-src-fontify-natively t)
-(setq org-default-notes-file "~/Dropbox/org/misc.org")
+(setq org-default-notes-file "~/Dropbox/org/reference.org")
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-todo-keyword-faces
       `(("TODO" . (:foreground "blue" :weight bold))
