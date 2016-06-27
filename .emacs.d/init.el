@@ -172,6 +172,9 @@
       ("DONE" . (:foreground "green" :weight bold))
       ("CANCELLED" . (:foreground "red" :weight bold))))
 
+(setq org-modules (append org-modules '(org-habit)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages '((python . t)))
 ;; capture-templates
 (setq org-capture-templates '(
     ("n" "Quick reference note"
