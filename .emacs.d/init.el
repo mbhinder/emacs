@@ -186,6 +186,10 @@
          entry (file+datetree (format "~/org-notes/%s_notes.org" (format-time-string "%Y")))
          "* Note: %?\n\n  %i\n\n  From: %a"
          :empty-lines 1)
+    ("o" "Quick reference note"
+         entry (file+datetree (format "~/org-notes/%s_work_notes.org" (format-time-string "%Y")))
+         "* Note: %?\n\n  %i\n\n  From: %a"
+         :empty-lines 1)
     ("c" "Personal chore"
          entry (file "~/org-notes/chores.org")
          "* TODO %?  %i\n  From: %a"
