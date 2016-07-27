@@ -31,7 +31,7 @@
 (use-package deft
   :ensure t)
 (setq deft-extensions '("txt" "tex" "org"))
-(setq deft-directory "~/Dropbox/org")
+(setq deft-directory "~/org-notes")
 (global-set-key [f8] 'deft-find-file)
 
 (use-package git-gutter
@@ -160,10 +160,10 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
-(setq org-agenda-files (list "~/Dropbox/org/"))
+(setq org-agenda-files (list "~/org-notes/"))
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
 (setq org-src-fontify-natively t)
-(setq org-default-notes-file "~/Dropbox/org/reference.org")
+(setq org-default-notes-file "~/org-notes/reference.org")
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-todo-keyword-faces
       `(("TODO" . (:foreground "grey" :weight bold))
@@ -172,21 +172,26 @@
       ("DONE" . (:foreground "green" :weight bold))
       ("CANCELLED" . (:foreground "red" :weight bold))))
 
-(setq org-modules (append org-modules '(org-habit)))
+(defun my-after-load-org ()
+  (add-to-list 'org-modules 'org-habit))
+(eval-after-load "org" '(my-after-load-org))
+
 (org-babel-do-load-languages
- 'org-babel-load-languages '((python . t)))
+ 'org-babel-load-languages '((python . t)
+                             (ledger . t)
+                             ))
 ;; capture-templates
 (setq org-capture-templates '(
     ("n" "Quick reference note"
-         entry (file+datetree (format "~/Dropbox/org/%s_notes.org" (format-time-string "%Y")))
+         entry (file+datetree (format "~/org-notes/%s_notes.org" (format-time-string "%Y")))
          "* Note: %?\n\n  %i\n\n  From: %a"
          :empty-lines 1)
     ("c" "Personal chore"
-         entry (file "~/Dropbox/org/chores.org")
+         entry (file "~/org-notes/chores.org")
          "* TODO %?  %i\n  From: %a"
          :empty-lines 1)
     ("w" "Work task"
-         entry (file "~/Dropbox/org/work.org")
+         entry (file "~/org-notes/work.org")
          "* TODO %?  %i\n  From: %a"
          :empty-lines 1))
 )
@@ -203,6 +208,8 @@
 )
 
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-mode))
+(add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -241,3 +248,38 @@
 
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
+
+;; AucTeX
+(use-package magit
+  :ensure t)
+
+;; AucTeX
+(use-package ledger-mode
+  :ensure t)
+
+;; ======================================================================
+;; Latex stuff
+;; ======================================================================
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+(setq reftex-cite-format 'natbib)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
+(setq TeX-PDF-mode t)
+(eval-after-load "tex"
+  '(add-to-list 'TeX-command-list
+		'("All" "latexmk -pdf %t" TeX-run-TeX nil 
+		    (latex-mode doctex-mode)
+		      :help "Run latexmk")))
+
+;; use Skim as default pdf viewer
+;; Skim's displayline is used for forward search (from .tex to .pdf)
+;; option -b highlights the current line; option -g opens Skim in the background  
+(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+(setq TeX-view-program-list
+     '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+
