@@ -179,6 +179,8 @@
 (org-babel-do-load-languages
  'org-babel-load-languages '((python . t)
                              (ledger . t)
+                             (C . t)
+                             (sh . t)
                              ))
 ;; capture-templates
 (setq org-capture-templates '(
