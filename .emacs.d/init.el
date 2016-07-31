@@ -289,3 +289,8 @@
 (setq TeX-view-program-list
      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
 
+
+;; Start emacs server
+(require 'server)
+(unless (server-running-p)
+  (server-start))
