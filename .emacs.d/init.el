@@ -10,7 +10,7 @@
 ;; activate all the packages (in particular autoloads)
 (package-initialize)
 
-;; fetch the list of packages available 
+;; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -71,7 +71,7 @@
 
 (defun theme-init ()
   (load-theme 'solarized-dark t)
-)
+  )
 
 ;; Change theme to zenburn
 (add-hook 'after-init-hook 'theme-init)
@@ -89,7 +89,7 @@
   ;; default Latin font (e.g. Consolas)
   (set-face-attribute 'default nil :family "Monaco")
   (set-face-attribute 'default nil :height 130)
-)
+  )
 
 (use-package highlight-current-line
   :ensure t)
@@ -151,7 +151,7 @@
   (setq tab-width 4)
   (setq indent-tabs-mode 1)
   (setq gofmt-command "goimports")
-)
+  )
 
 (add-hook 'go-mode-hook 'go-mode-setup)
 
@@ -167,10 +167,10 @@
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-todo-keyword-faces
       `(("TODO" . (:foreground "grey" :weight bold))
-      ("IN-PROGRESS" . (:foreground "yellow" :weight bold))
-      ("WAITING" . (:foreground "orange" :weight bold))
-      ("DONE" . (:foreground "green" :weight bold))
-      ("CANCELLED" . (:foreground "red" :weight bold))))
+        ("IN-PROGRESS" . (:foreground "yellow" :weight bold))
+        ("WAITING" . (:foreground "orange" :weight bold))
+        ("DONE" . (:foreground "green" :weight bold))
+        ("CANCELLED" . (:foreground "red" :weight bold))))
 
 (defun my-after-load-org ()
   (add-to-list 'org-modules 'org-habit))
@@ -279,13 +279,13 @@
 (setq TeX-PDF-mode t)
 (eval-after-load "tex"
   '(add-to-list 'TeX-command-list
-                '("All" "latexmk -pdf %t" TeX-run-TeX nil 
+                '("All" "latexmk -pdf %t" TeX-run-TeX nil
                   (latex-mode doctex-mode)
                   :help "Run latexmk")))
 
 ;; use Skim as default pdf viewer
 ;; Skim's displayline is used for forward search (from .tex to .pdf)
-;; option -b highlights the current line; option -g opens Skim in the background  
+;; option -b highlights the current line; option -g opens Skim in the background
 (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
 (setq TeX-view-program-list
       '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
