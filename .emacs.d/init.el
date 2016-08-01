@@ -181,37 +181,38 @@
                              (ledger . t)
                              (C . t)
                              (sh . t)
+                             (emacs-lisp . t)
                              ))
 ;; capture-templates
 (setq org-capture-templates '(
-    ("n" "Quick reference note"
-         entry (file+datetree (format "~/org-notes/%s_notes.org" (format-time-string "%Y")))
-         "* Note: %?\n\n  %i\n\n  From: %a"
-         :empty-lines 1)
-    ("o" "Quick reference note - work"
-         entry (file+datetree (format "~/org-notes/%s_work_notes.org" (format-time-string "%Y")))
-         "* Note: %?\n\n  %i\n\n  From: %a"
-         :empty-lines 1)
-    ("c" "Personal chore"
-         entry (file "~/org-notes/chores.org")
-         "* TODO %?  %i\n  From: %a"
-         :empty-lines 1)
-    ("w" "Work task"
-         entry (file "~/org-notes/work.org")
-         "* TODO %?  %i\n  From: %a"
-         :empty-lines 1))
-)
+                              ("n" "Quick reference note"
+                               entry (file+datetree (format "~/org-notes/%s_notes.org" (format-time-string "%Y")))
+                               "* Note: %?\n\n  %i\n\n  From: %a"
+                               :empty-lines 1)
+                              ("o" "Quick reference note - work"
+                               entry (file+datetree (format "~/org-notes/%s_work_notes.org" (format-time-string "%Y")))
+                               "* Note: %?\n\n  %i\n\n  From: %a"
+                               :empty-lines 1)
+                              ("c" "Personal chore"
+                               entry (file "~/org-notes/chores.org")
+                               "* TODO %?  %i\n  From: %a"
+                               :empty-lines 1)
+                              ("w" "Work task"
+                               entry (file "~/org-notes/work.org")
+                               "* TODO %?  %i\n  From: %a"
+                               :empty-lines 1))
+      )
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (global-git-gutter-mode +1)
 (when (fboundp 'winner-mode)
-(winner-mode 1))
+  (winner-mode 1))
 
 (if (eq system-type 'darwin)
- (global-set-key (kbd "C-c b") 'browse-url-default-macosx-browser)
-)
+    (global-set-key (kbd "C-c b") 'browse-url-default-macosx-browser)
+  )
 
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-mode))
 (add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
@@ -244,13 +245,13 @@
 
 (global-set-key [f5] 'refresh-file)
 
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
-  backup-by-copying t    ; Don't delink hardlinks
-  version-control t      ; Use version numbers on backups
-  delete-old-versions t  ; Automatically delete excess backups
-  kept-new-versions 20   ; how many of the newest versions to keep
-  kept-old-versions 5    ; and how many of the old
-  )
+(setq backup-directory-alist '(("." . "~/.emasc.d/backup"))
+      backup-by-copying t    ; Don't delink hardlinks
+      version-control t      ; Use version numbers on backups
+      delete-old-versions t  ; Automatically delete excess backups
+      kept-new-versions 20   ; how many of the newest versions to keep
+      kept-old-versions 5    ; and how many of the old
+      )
 
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
@@ -278,19 +279,26 @@
 (setq TeX-PDF-mode t)
 (eval-after-load "tex"
   '(add-to-list 'TeX-command-list
-		'("All" "latexmk -pdf %t" TeX-run-TeX nil 
-		    (latex-mode doctex-mode)
-		      :help "Run latexmk")))
+                '("All" "latexmk -pdf %t" TeX-run-TeX nil 
+                  (latex-mode doctex-mode)
+                  :help "Run latexmk")))
 
 ;; use Skim as default pdf viewer
 ;; Skim's displayline is used for forward search (from .tex to .pdf)
 ;; option -b highlights the current line; option -g opens Skim in the background  
 (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
 (setq TeX-view-program-list
-     '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
 
 
 ;; Start emacs server
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
+(load-file "~/ledger-pricedb/ledger-pricedb.el")
+(set 'ledger-pricedb--yahoo_uri "http://download.finance.yahoo.com/d/quotes.csv?s=")
+(set 'ledger-pricedb--stocks '("VGTSX" "VFIFX" "VBTLX" "VTIAX" "VTSAX" "VTSMX" "NFLX" "VSMAX"))
+(set 'ledger-pricedb--pricedb "~/ledger/.pricedb")
+
+(global-set-key (kbd "C-c s") (lambda () (interactive) (ledger-pricedb-save-pricedb)))
