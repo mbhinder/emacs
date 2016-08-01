@@ -302,3 +302,15 @@
 (set 'ledger-pricedb--pricedb "~/ledger/.pricedb")
 
 (global-set-key (kbd "C-c s") (lambda () (interactive) (ledger-pricedb-save-pricedb)))
+
+(global-unset-key "\C-x\C-b")
+
+(defun indent-buffer ()
+  "Indents an entire buffer using the default intenting scheme."
+  (interactive)
+  (save-excursion
+    (delete-trailing-whitespace)
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))))
+
+(global-set-key "\C-x\\" 'indent-buffer)
