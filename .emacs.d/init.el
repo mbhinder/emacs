@@ -44,10 +44,6 @@
 (use-package auto-complete
   :ensure t)
 
-;;; Enable solarized dark theme
-(use-package solarized-theme
-  :ensure t)
-
 ;; Navigate project files
 (use-package helm
   :ensure t)
@@ -70,7 +66,7 @@
 (ac-config-default)
 
 (defun theme-init ()
-  (load-theme 'solarized-dark t)
+  (load-theme 'zenburn t)
   )
 
 ;; Change theme to zenburn
