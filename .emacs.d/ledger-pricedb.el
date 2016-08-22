@@ -12,11 +12,13 @@
 (defvar ledger-pricedb--stocks nil)
 (defvar ledger-pricedb--pricedb nil)
 
+(set 'ledger-pricedb--yahoo_uri "http://download.finance.yahoo.com/d/quotes.csv?s=")
+
 (defun ledger-pricedb-get-prices (uri tickers)
   "Get prices from Yahoo using URI for the http uri for the tickers specified in TICKERS."
   (split-string
    (with-current-buffer (url-retrieve-synchronously
-                         (concat uri (mapconcat 'identity tickers "+") "&f=p"))
+                         (concat uri (mapconcat 'identity tickers "+") "&f=l1"))
      (goto-char (point-min))
      (re-search-forward "^\n")
      (delete-region (point) (point-min))
@@ -30,6 +32,7 @@
 
 (defun ledger-pricedb-save-pricedb ()
   "Save the prices downloaded by generate-pricedb to the pricedb file."
+  (interactive)
   (write-region "\n" nil  ledger-pricedb--pricedb 'append)
   (write-region (mapconcat 'identity (ledger-pricedb-generate-pricedb (ledger-pricedb-get-prices ledger-pricedb--yahoo_uri ledger-pricedb--stocks)) "\n") nil  ledger-pricedb--pricedb 'append)
   (write-region "\n" nil  ledger-pricedb--pricedb 'append))
