@@ -352,3 +352,7 @@
     smtpmail-default-smtp-server "mail.messagingengine.com"
     smtpmail-smtp-server "mail.messagingengine.com"
     smtpmail-smtp-service 587)
+
+(use-package mu4e-alert
+  :ensure t)
+(add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
