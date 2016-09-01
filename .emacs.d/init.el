@@ -218,9 +218,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auth-source-save-behavior nil)
  '(custom-safe-themes
    (quote
-    ("2e5705ad7ee6cfd6ab5ce81e711c526ac22abed90b852ffaf0b316aa7864b11f" default))))
+    ("2e5705ad7ee6cfd6ab5ce81e711c526ac22abed90b852ffaf0b316aa7864b11f" default)))
+ '(send-mail-function (quote smtpmail-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -310,3 +312,43 @@
     (untabify (point-min) (point-max))))
 
 (global-set-key "\C-x\\" 'indent-buffer)
+
+;; -------------------------------------
+;; MAIL
+;; -------------------------------------
+
+;; mu4e
+(add-to-list 'load-path "/usr/local/Cellar/mu/HEAD/share/emacs/site-lisp/mu/mu4e")
+(require 'mu4e)
+(setq mu4e-mu-binary "/usr/local/bin/mu")
+
+(setq mu4e-maildir "~/.mail")
+(setq mu4e-view-show-images t)
+(setq mu4e-html2text-command "w3m -dump -T text/html")
+(setq mu4e-view-prefer-html t)
+(setq mu4e-use-fancy-chars t)
+(setq mu4e-headers-skip-duplicates t)
+(setq mu4e-get-mail-command "offlineimap -q")
+(setq mu4e-update-interval 300)
+(setq mu4e-attachment-dir  "~/downloads")
+(setq mu4e-sent-messages-behavior 'delete)
+(setq message-kill-buffer-on-exit t)
+(setq mu4e-hide-index-messages t)
+(add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
+(setq
+ user-mail-address "preet@bhinder.me"
+ user-full-name  "Preet Bhinder"
+ mu4e-compose-signature
+ (concat
+  "Thanks,\n"
+  "Preet Bhinder\n"))
+
+
+(setq smtpmail-smtp-user "preetbhinder@fastmail.com")
+
+
+(setq message-send-mail-function 'smtpmail-send-it
+    smtpmail-stream-type 'starttls
+    smtpmail-default-smtp-server "mail.messagingengine.com"
+    smtpmail-smtp-server "mail.messagingengine.com"
+    smtpmail-smtp-service 587)
