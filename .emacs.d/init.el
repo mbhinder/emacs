@@ -356,6 +356,11 @@
     smtpmail-smtp-server "mail.messagingengine.com"
     smtpmail-smtp-service 587)
 
-(use-package mu4e-alert
+(use-package elfeed
   :ensure t)
-(add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+
+(global-set-key (kbd "C-c e") 'elfeed)
+(global-set-key (kbd "C-c m") 'mu4e)
+
+(require 'password-cache)
+(setq password-cache-expiry nil)
