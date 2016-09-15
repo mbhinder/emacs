@@ -222,6 +222,9 @@
  '(custom-safe-themes
    (quote
     ("2e5705ad7ee6cfd6ab5ce81e711c526ac22abed90b852ffaf0b316aa7864b11f" default)))
+ '(elfeed-feeds
+   (quote
+    ("http://leetcode.com/feed" "http://meowni.ca/atom.xml" "http://dave.cheney.net/feed" "http://garrett.damore.org/feeds/posts/default" "http://feeds.feedburner.com/catonmat" "http://feeds.feedburner.com/ScottHanselman" "http://feeds.feedburner.com/UnethicalBlogger" "http://sudharsh.me/atom.xml" "http://biodieselhauling.blogspot.com/feeds/posts/default" "http://www.mrsmoneymustache.com/feed/" "http://feeds.feedburner.com/RickFerri" "http://www.techmeshugana.com/feed/" "http://brownvagabonder.com/feed/" "http://feeds.feedburner.com/MadFientist" "http://feeds.feedburner.com/jlcollinsnh" "http://radicalpersonalfinance.libsyn.com/rss" "http://gooddaytolive.wordpress.com/feed/" "http://livingafi.com/feed/" "http://feeds.feedburner.com/EarlyRetirementExtreme" "http://feeds.feedburner.com/GoCurryCracker" "http://feeds.feedburner.com/MrMoneyMustache" "http://feeds.feedburner.com/FlannelGuyROI" "http://feeds.feedburner.com/NerdFitnessBlog" "http://xkcd.com/rss.xml" "http://coreos.com/atom.xml" "http://rachelbythebay.com/w/atom.xml" "http://0x74696d.com/rss.xml" "http://feeds.feedburner.com/HighScalability" "http://feeds.feedburner.com/corner-squareup-com" "http://nathanleclaire.com/index.xml" "http://zenhabits.net/feed/" "http://www.raptitude.com/feed/" "http://feeds.feedburner.com/StudyHacks" "http://feeds.feedburner.com/BrazenCareerist" "http://feeds.feedburner.com/sachac")))
  '(send-mail-function (quote smtpmail-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
