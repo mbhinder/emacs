@@ -292,13 +292,6 @@
 (unless (server-running-p)
   (server-start))
 
-(load-file "~/ledger-pricedb/ledger-pricedb.el")
-(set 'ledger-pricedb--yahoo_uri "http://download.finance.yahoo.com/d/quotes.csv?s=")
-(set 'ledger-pricedb--stocks '("VGTSX" "VFIFX" "VBTLX" "VTIAX" "VTSAX" "VTSMX" "NFLX" "VSMAX"))
-(set 'ledger-pricedb--pricedb "~/ledger/.pricedb")
-
-(global-set-key (kbd "C-c s") (lambda () (interactive) (ledger-pricedb-save-pricedb)))
-
 (global-unset-key "\C-x\C-b")
 
 (defun indent-buffer ()
