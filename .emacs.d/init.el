@@ -62,11 +62,12 @@
 (define-key yas-minor-mode-map (kbd "<C-tab>") 'yas-expand)
 (global-set-key (kbd "C-c C-s") 'yas-insert-snippet)
 (global-set-key (kbd "C-c C-n") 'yas-new-snippet)
+(global-set-key (kbd "C-c C-g") 'helm-ag-project-root)
 
 (ac-config-default)
 
 (defun theme-init ()
-  (load-theme 'zenburn t)
+  (load-theme 'tango-dark t)
   )
 
 ;; Change theme to zenburn
@@ -83,19 +84,11 @@
 (when (eq system-type 'darwin)
 
   ;; default Latin font (e.g. Consolas)
-  (set-face-attribute 'default nil :family "Monaco")
-  (set-face-attribute 'default nil :height 130)
+  (set-face-attribute 'default nil :family "SourceCodePro-Regular")
+  (set-face-attribute 'default nil :height 120)
   )
 
-(use-package highlight-current-line
-  :ensure t)
-
-(global-hl-line-mode t)
 (helm-mode t)
-(setq highlight-current-line-globally t)
-(setq highlight-current-line-high-faces nil)
-(setq highlight-current-line-whole-line nil)
-(setq hl-line-face (quote highlight))
 
 ;; Don't blink the cursor
 (blink-cursor-mode 0)
@@ -153,11 +146,8 @@
 
 ;; org-mode
 (define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
-(setq org-agenda-files (list "~/org-notes/"))
-(setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
 (setq org-src-fontify-natively t)
 (setq org-default-notes-file "~/org-notes/reference.org")
 (define-key global-map "\C-cc" 'org-capture)
@@ -167,6 +157,9 @@
         ("WAITING" . (:foreground "orange" :weight bold))
         ("DONE" . (:foreground "green" :weight bold))
         ("CANCELLED" . (:foreground "red" :weight bold))))
+
+(setq org-todo-keywords
+      '((sequence "TODO" "IN-PROGRESS" "|" "WAITING" "DONE" "CANCELLED")))
 
 (defun my-after-load-org ()
   (add-to-list 'org-modules 'org-habit))
@@ -179,6 +172,7 @@
                              (sh . t)
                              (emacs-lisp . t)
                              ))
+
 ;; capture-templates
 (setq org-capture-templates '(
                               ("n" "Quick reference note"
@@ -206,32 +200,7 @@
 (when (fboundp 'winner-mode)
   (winner-mode 1))
 
-(if (eq system-type 'darwin)
-    (global-set-key (kbd "C-c b") 'browse-url-default-macosx-browser)
-  )
-
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-mode))
-(add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auth-source-save-behavior nil)
- '(custom-safe-themes
-   (quote
-    ("2e5705ad7ee6cfd6ab5ce81e711c526ac22abed90b852ffaf0b316aa7864b11f" default)))
- '(elfeed-feeds
-   (quote
-    ("http://nullprogram.com/feed/" "http://leetcode.com/feed" "http://meowni.ca/atom.xml" "http://dave.cheney.net/feed" "http://garrett.damore.org/feeds/posts/default" "http://feeds.feedburner.com/catonmat" "http://feeds.feedburner.com/ScottHanselman" "http://feeds.feedburner.com/UnethicalBlogger" "http://sudharsh.me/atom.xml" "http://biodieselhauling.blogspot.com/feeds/posts/default" "http://www.mrsmoneymustache.com/feed/" "http://feeds.feedburner.com/RickFerri" "http://www.techmeshugana.com/feed/" "http://brownvagabonder.com/feed/" "http://feeds.feedburner.com/MadFientist" "http://feeds.feedburner.com/jlcollinsnh" "http://radicalpersonalfinance.libsyn.com/rss" "http://gooddaytolive.wordpress.com/feed/" "http://livingafi.com/feed/" "http://feeds.feedburner.com/EarlyRetirementExtreme" "http://feeds.feedburner.com/GoCurryCracker" "http://feeds.feedburner.com/MrMoneyMustache" "http://feeds.feedburner.com/FlannelGuyROI" "http://feeds.feedburner.com/NerdFitnessBlog" "http://xkcd.com/rss.xml" "http://coreos.com/atom.xml" "http://rachelbythebay.com/w/atom.xml" "http://0x74696d.com/rss.xml" "http://feeds.feedburner.com/HighScalability" "http://feeds.feedburner.com/corner-squareup-com" "http://nathanleclaire.com/index.xml" "http://zenhabits.net/feed/" "http://www.raptitude.com/feed/" "http://feeds.feedburner.com/StudyHacks" "http://feeds.feedburner.com/BrazenCareerist" "http://feeds.feedburner.com/sachac")))
- '(send-mail-function (quote smtpmail-send-it)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;; use Shift+arrow_keys to move cursor around split panes
 (windmove-default-keybindings)
@@ -257,52 +226,16 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;; AucTeX
 (use-package magit
-  :ensure t)
-
-;; AucTeX
-(use-package ledger-mode
   :ensure t)
 
 ;; ======================================================================
 ;; Latex stuff
-;; ======================================================================
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-(setq reftex-cite-format 'natbib)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
-(setq TeX-PDF-mode t)
-(eval-after-load "tex"
-  '(add-to-list 'TeX-command-list
-                '("All" "latexmk -pdf %t" TeX-run-TeX nil
-                  (latex-mode doctex-mode)
-                  :help "Run latexmk")))
-
-;; use Skim as default pdf viewer
-;; Skim's displayline is used for forward search (from .tex to .pdf)
-;; option -b highlights the current line; option -g opens Skim in the background
-(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
-(setq TeX-view-program-list
-      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
-
-
 ;; Start emacs server
+
 (require 'server)
 (unless (server-running-p)
   (server-start))
-
-(load-file "~/ledger-pricedb/ledger-pricedb.el")
-(set 'ledger-pricedb--yahoo_uri "http://download.finance.yahoo.com/d/quotes.csv?s=")
-(set 'ledger-pricedb--stocks '("VGTSX" "VFIFX" "VBTLX" "VTIAX" "VTSAX" "VTSMX" "NFLX" "VSMAX"))
-(set 'ledger-pricedb--pricedb "~/ledger/.pricedb")
-
-(global-set-key (kbd "C-c s") (lambda () (interactive) (ledger-pricedb-save-pricedb)))
 
 (global-unset-key "\C-x\C-b")
 
@@ -316,51 +249,9 @@
 
 (global-set-key "\C-x\\" 'indent-buffer)
 
-;; -------------------------------------
-;; MAIL
-;; -------------------------------------
-
-;; mu4e
-(add-to-list 'load-path "/usr/local/Cellar/mu/HEAD/share/emacs/site-lisp/mu/mu4e")
-(require 'mu4e)
-(setq mu4e-mu-binary "/usr/local/bin/mu")
-
-(setq mu4e-maildir "~/.mail")
-(setq mu4e-view-show-images t)
-(setq mu4e-html2text-command "w3m -dump -T text/html")
-(setq mu4e-view-prefer-html t)
-(setq mu4e-use-fancy-chars t)
-(setq mu4e-headers-skip-duplicates t)
-(setq mu4e-get-mail-command "offlineimap -q")
-(setq mu4e-update-interval 300)
-(setq mu4e-attachment-dir  "~/downloads")
-(setq mu4e-sent-messages-behavior 'delete)
-(setq message-kill-buffer-on-exit t)
-(setq mu4e-hide-index-messages t)
-(add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
-(setq
- user-mail-address "preet@bhinder.me"
- user-full-name  "Preet Bhinder"
- mu4e-compose-signature
- (concat
-  "Thanks,\n"
-  "Preet Bhinder\n"))
-
-
-(setq smtpmail-smtp-user "preetbhinder@fastmail.com")
-
-
-(setq message-send-mail-function 'smtpmail-send-it
-    smtpmail-stream-type 'starttls
-    smtpmail-default-smtp-server "mail.messagingengine.com"
-    smtpmail-smtp-server "mail.messagingengine.com"
-    smtpmail-smtp-service 587)
-
-(use-package elfeed
-  :ensure t)
-
-(global-set-key (kbd "C-c e") 'elfeed)
-(global-set-key (kbd "C-c m") 'mu4e)
-
+;; Cache  ssh passwords
 (require 'password-cache)
 (setq password-cache-expiry nil)
+
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
